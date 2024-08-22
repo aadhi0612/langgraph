@@ -18,7 +18,7 @@ Memory is a key concept to agentic applications. Memory is important because end
 
 LangGraph is perfectly suited to give you full control over the memory of your application. With user defined [`State`](./low_level.md#state) you can specify the exact schema of the memory you want to retain. With [checkpointers](./low_level.md#checkpointer) you can store checkpoints of previous interactions and resume from there in follow up interactions.
 
-See [this guide](../how-tos/persistence.ipynb) for how to add memory to your graph.
+See [this guide](../examples/persistence.ipynb) for how to add memory to your graph.
 
 ## Human-in-the-loop
 
@@ -30,7 +30,7 @@ There are a few common human-in-the-loop interaction patterns we see emerging.
 
 A basic one is to have the agent wait for approval before executing certain tools. This may be all tools, or just a subset of tools. This is generally recommend for more sensitive actions (like writing to a database). This can easily be done in LangGraph by setting a [breakpoint](./low_level.md#breakpoints) before specific nodes.
 
-See [this guide](../how-tos/human_in_the_loop/breakpoints.ipynb) for how do this in LangGraph.
+See [this guide](../examples/human_in_the_loop/breakpoints.ipynb) for how do this in LangGraph.
 
 ### Wait for input
 
@@ -42,19 +42,19 @@ A similar one is to have the agent wait for human input. This can be done by:
 4. Update the state with that user input, acting as that node
 5. Resume execution
 
-See [this guide](../how-tos/human_in_the_loop/wait-user-input.ipynb) for how do this in LangGraph.
+See [this guide](../examples/human_in_the_loop/wait-user-input.ipynb) for how do this in LangGraph.
 
 ### Edit agent actions
 
 This is a more advanced interaction pattern. In this interaction pattern the human can actually edit some of the agent's previous decisions. This can be done either during the flow (after a [breakpoint](./low_level.md#breakpoints), part of the [approval](#approval) flow) or after the fact (as part of [time-travel](#time-travel))
 
-See [this guide](../how-tos/human_in_the_loop/edit-graph-state.ipynb) for how do this in LangGraph.
+See [this guide](../examples/human_in_the_loop/edit-graph-state.ipynb) for how do this in LangGraph.
 
 ### Time travel
 
 This is a pretty advanced interaction pattern. In this interaction pattern, the human can look back at the list of previous checkpoints, find one they like, optionally [edit it](#edit-agent-actions), and then resume execution from there.
 
-See [this guide](../how-tos/human_in_the_loop/time-travel.ipynb) for how to do this in LangGraph.
+See [this guide](../examples/human_in_the_loop/time-travel.ipynb) for how to do this in LangGraph.
 
 ## Review Tool Calls
 
@@ -73,7 +73,7 @@ When reviewing tool calls, there are few actions you may want to take.
 2. Manually change the tool call, either the tool name or the tool arguments (and let the agent continue on its way after that)
 3. Leave feedback on the tool call. This differs from (2) in that you are not changing the tool call directly, but rather leaving natural language feedback suggesting the LLM call it differently (or call a different tool). You could do this by either adding a `ToolMessage` and having the feedback be the result of the tool call, or by adding a `ToolMessage` (that simulates an error) and then a `HumanMessage` (with the feedback).
 
-See [this guide](../how-tos/human_in_the_loop/review-tool-calls.ipynb) for how to do this in LangGraph.
+See [this guide](../examples/human_in_the_loop/review-tool-calls.ipynb) for how to do this in LangGraph.
 
 ## Map-Reduce
 
@@ -81,7 +81,7 @@ A common pattern in agents is to generate a list of objects, do some work on eac
 
 LangGraph supports this via the [Send](./low_level.md#send) api. This can be used to allow a conditional edge to Send multiple different states to multiple nodes. The state it sends can be different from the state of the core graph.
 
-See a how-to guide for this [here](../how-tos/map-reduce.ipynb)
+See a how-to guide for this [here](../examples/map-reduce.ipynb)
 
 ## Multi-agent
 
@@ -115,4 +115,4 @@ This is named after and based on the [ReAct](https://arxiv.org/abs/2210.03629) p
 - Forth, the paper only looks at calling a single tool at the time, largely due to limitations in LLMs performance at the time. Our implementation allows for calling multiple tools at a time.
 - Finally, the paper asked the LLM to explicitly generate a "Thought" step before deciding which tools to call. This is the "Reasoning" part of "ReAct". Our implementation does not do this by default, largely because LLMs have gotten much better and that is not as necessary. Of course, if you wish to prompt it do so, you certainly can.
 
-See [this guide](../how-tos/human_in_the_loop/time-travel.ipynb) for a full walkthrough of how to use the prebuilt ReAct agent.
+See [this guide](../examples/human_in_the_loop/time-travel.ipynb) for a full walkthrough of how to use the prebuilt ReAct agent.
